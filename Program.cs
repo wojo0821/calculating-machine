@@ -1,4 +1,4 @@
-﻿class Program
+class Program
 {
     static void Main()
     {
@@ -123,6 +123,19 @@
             }
         }
         fList.Add(float.Parse(sList[sListCount]));
+
+        for (int i = 0; i < cList.Count; i++)
+        {
+            if (cList[i] == '*' || cList[i] == '/' || cList[i] == '%')
+            {
+                if (cList[i] == '*') fList.Add(fList[i] * fList[i + 1]);
+                if (cList[i] == '/') fList.Add(fList[i] / fList[i + 1]);
+                if (cList[i] == '%') fList.Add(fList[i] % fList[i + 1]);
+                fList.Remove(fList[i + 1]);
+                fList.Remove(fList[i]);
+                cList.Remove(cList[i]);
+            }
+        }
 
         for (int i = 0; i < cList.Count; i++)
         {
