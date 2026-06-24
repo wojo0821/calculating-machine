@@ -2,44 +2,48 @@ class Program
 {
     static void Main()
     {
-        Console.Write("공식을 입력하세요 : ");
-        string s = Console.ReadLine();
-        char[] cArray = s.ToCharArray();
-        for (int i = 0; i < cArray.Length; i++)
+        while (true)
         {
-            if (cArray[i] == '(')
+            Console.Write("공식을 입력하세요 : ");
+            string s = Console.ReadLine();
+            for (int i = 0; i < s.Length; i++)
             {
-                float parenSAnswer;
-                int openParenIndex = i;
-                int closeParenIndex = 0;
-                string beforeOpenParenS = "";
-                string afterCloseParenS = "";
-                string parenS = "";
-                for (int j = i + 1; j < cArray.Length; j++)
+                char[] cArray = s.ToCharArray();
+                if (cArray[i] == '(')
                 {
-                    if (cArray[j] == ')')
+                    float parenSAnswer;
+                    int openParenIndex = i;
+                    int closeParenIndex = 0;
+                    string beforeOpenParenS = "";
+                    string afterCloseParenS = "";
+                    string parenS = "";
+                    for (int j = i + 1; j < cArray.Length; j++)
                     {
-                        closeParenIndex = j;
+                        if (cArray[j] == ')')
+                        {
+                            closeParenIndex = j;
+                            break;
+                        }
                     }
-                }
-                for (int j = openParenIndex + 1; j < closeParenIndex; j++)
-                {
-                    parenS += cArray[j];
-                }
-                for (int j = 0; j < openParenIndex; j++)
-                {
-                    beforeOpenParenS += cArray[j];
-                }
-                for (int j = closeParenIndex + 1; j < cArray.Length; j++)
-                {
-                    afterCloseParenS += cArray[j];
-                }
+                    for (int j = openParenIndex + 1; j < closeParenIndex; j++)
+                    {
+                        parenS += cArray[j];
+                    }
+                    for (int j = 0; j < openParenIndex; j++)
+                    {
+                        beforeOpenParenS += cArray[j];
+                    }
+                    for (int j = closeParenIndex + 1; j < cArray.Length; j++)
+                    {
+                        afterCloseParenS += cArray[j];
+                    }
 
-                parenSAnswer = Calculate(parenS);
-                s = beforeOpenParenS + parenSAnswer + afterCloseParenS;
+                    parenSAnswer = Calculate(parenS);
+                    s = beforeOpenParenS + parenSAnswer + afterCloseParenS;
+                }
             }
+            Console.WriteLine(Calculate(s));
         }
-        Console.WriteLine(Calculate(s));
     }
 
 
@@ -126,6 +130,7 @@ class Program
 
         for (int i = 0; i < cList.Count; i++)
         {
+            if (cList.Count == 0) break;
             if (cList[i] == '*' || cList[i] == '/' || cList[i] == '%')
             {
                 if (cList[i] == '*') fList.Add(fList[i] * fList[i + 1]);
