@@ -6,6 +6,10 @@ class Program
         {
             Console.Write("공식을 입력하세요 : ");
             string s = Console.ReadLine();
+            if (s == "")
+            {
+                return;
+            }
             for (int i = 0; i < s.Length; i++)
             {
                 char[] cArray = s.ToCharArray();
@@ -42,7 +46,7 @@ class Program
                     s = beforeOpenParenS + parenSAnswer + afterCloseParenS;
                 }
             }
-            Console.WriteLine(Calculate(s));
+            if (Calculate(s) != 0) Console.WriteLine(Calculate(s));
         }
     }
 
@@ -123,14 +127,23 @@ class Program
             else
             {
                 Console.WriteLine("잘못된 입력입니다.");
-                break;
+                return num;
             }
         }
-        fList.Add(float.Parse(sList[sListCount]));
+        if (sList[sListCount] != "")
+        {
+            fList.Add(float.Parse(sList[sListCount]));
+        }
+        else
+        {
+            Console.WriteLine("잘못된 입력입니다.");
+            return num;
+        }
+        if (fList.Count == 1) return fList[0];
 
         for (int i = 0; i < cList.Count; i++)
         {
-            if (cList.Count == 0) break;
+            if (cList.Count <= 1) break;
             if (cList[i] == '*' || cList[i] == '/' || cList[i] == '%')
             {
                 if (cList[i] == '*') fList.Add(fList[i] * fList[i + 1]);
